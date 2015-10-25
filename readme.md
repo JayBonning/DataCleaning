@@ -8,7 +8,7 @@ As part of the project, the the 'UCI HAR Dataset' is already in the solution.  T
 
 Usage
 -----
-- run_analysis(file name)
+- run_analysis(x)
 
 Arguments
 ---------
