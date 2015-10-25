@@ -15,3 +15,22 @@ The dataset includes the following files:
 - readme.md - File describing the usage of this program
 - run_analysis.R - File with R programming code to combine and anaylse the data provided
 - UCI HAR Dataset - Full/Original dataset the application will work against.
+
+output file information
+=======================
+
+sub
+    Subject Number
+        Numeric indication of a unique subject
+        
+activity
+    Subject Activity
+        Activity the subject was performing duting analysis
+        
+mean
+    Average G Force
+        Average relative g force the subject exerted during the activity
+
+stddev
+    G Force standard deviation
+        Average standard deviation on the measured G force.
