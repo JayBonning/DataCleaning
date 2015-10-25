@@ -1,14 +1,7 @@
 
 run_analysis <- function (output = 'Tidy\\results.txt')
 {
-  #Create a new directory for the results if one does not already exist
-  #if(!dir.exists('Tidy'))
-  #  dir.create('Tidy')
-  
-  #combine_files('UCI HAR Dataset\\train\\subject_train.txt', 'UCI HAR Dataset\\test\\subject_test.txt', 'Tidy\\subject.txt')
-  #combine_files('UCI HAR Dataset\\train\\X_train.txt', 'UCI HAR Dataset\\test\\X_test.txt', 'Tidy\\X.txt')
-  #combine_files('UCI HAR Dataset\\train\\Y_train.txt', 'UCI HAR Dataset\\test\\Y_test.txt', 'Tidy\\Y.txt')
-  
+
   # Combine the data together to 
   subject <- combine_data('UCI HAR Dataset\\train\\subject_train.txt', 'UCI HAR Dataset\\test\\subject_test.txt')
   X <- combine_data('UCI HAR Dataset\\train\\X_train.txt', 'UCI HAR Dataset\\test\\X_test.txt')
@@ -28,20 +21,22 @@ run_analysis <- function (output = 'Tidy\\results.txt')
   subject$mean <- rowMeans(subset(X, select = 1:561), na.rm = TRUE)
   subject$stddev <- rowSds(as.matrix(X))
   
-  write.table(subject,  file = output,row.names = FALSE, col.names = TRUE)
-}
-
-combine_files <- function(file1, file2, outputfile)
-{
-  if(!file.exists(outputfile))
-  {
+  #Calculate the mean for both the mean and the standard deviation
+  aggregateMean <- aggregate(subject$mean, list(sub = subject$subject, activity = subject$activity), FUN=mean)
+  aggregateSD <- aggregate(subject$stddev, list(sub = subject$subject, activity = subject$activity), FUN=mean)
   
-    fileone <- read.table(file1)
-    filetwo <- read.table(file2)
-    
-    output <- rbind(fileone,filetwo)
-    write.csv(output, outputfile)
-  } 
+  #combine into one output.
+  analysis <- merge(aggregateMean, aggregateSD, c('sub', 'activity'))
+  
+  #Set correct column names
+  colnames(analysis)[3] <- "mean"
+  colnames(analysis)[4] <- "stddev"
+  
+  #Order the results
+  analysis <- analysis[with(analysis, order(sub, activity)), ]
+  
+  write.table(analysis,  file = output,row.names = FALSE, col.names = TRUE)
+  return(analysis)
 }
 
 combine_data <- function(file1, file2)
@@ -49,6 +44,6 @@ combine_data <- function(file1, file2)
     fileone <- read.table(file1)
     filetwo <- read.table(file2)
     
-    rbind(fileone,filetwo)
+    output <- rbind(fileone,filetwo)
 }
 

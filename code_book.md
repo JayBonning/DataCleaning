@@ -1,5 +1,8 @@
 # Data Cleaning assignment #1
 The data provided to us was broken out into several files.  We will be utilizing the information from 'Human Activity Recognition Using Smartphones Data Set' which was originally gathered at University of California Irvine.  It was a study in which 30 people between the ages of 19-48 were given a smart phone and the g-force of their activites was recorded over a variety of activites.
+<p>
+This program takes the output data from the study and combines it into one dataset.  This data is then merged down into the individual component mean and standard deviation per acticity.  All the measurements are in G forces.
+<p>
 
 ##Original Codebook Addendum
 This project extracts and analyses data from the original 'Human Activity Recognition Using Smartphones Data Set'.  This was originally downloaded from http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones.  The original data and codebook are available as part of this project.
